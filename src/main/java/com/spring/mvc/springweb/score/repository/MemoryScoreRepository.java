@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository // -->Component와 같은 기능
+@Repository("memoryScoreRepo") // -->Component와 같은 기능
 public class MemoryScoreRepository implements ScoreRepository{
 
     //학생들의 점수정보 객체(Score)를 저장할 Map생성(메모리DB 역할)
