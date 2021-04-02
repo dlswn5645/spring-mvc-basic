@@ -102,6 +102,42 @@ public class JdbcScoreRepository implements ScoreRepository{
 
     @Override
     public Score selectOne(int stuNum) {
+
+        Connection connection = null;
+
+        try {
+            Class.forName(driverName);
+            connection = DriverManager.getConnection(dbUrl, userId, userPw);
+            String sql = "SELECT * FROM tbl_score WHERE stu_num=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, stuNum);
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                return new Score(
+                        resultSet.getInt("stu_num"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("kor"),
+                        resultSet.getInt("eng"),
+                        resultSet.getInt("math"),
+                        resultSet.getInt("total"),
+                        resultSet.getDouble("average"),
+                        Grade.A
+                );
+            }
+
+            System.out.println("데이터 조회 성공");
+
+        } catch (Exception e) {
+            System.out.println("데이터 조회 실패");
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
