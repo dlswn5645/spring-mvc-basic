@@ -1,6 +1,7 @@
 package com.spring.mvc.springweb.score.controller;
 
 import com.spring.mvc.springweb.score.domain.Score;
+import com.spring.mvc.springweb.score.mapper.ScoreMyBatisMapper;
 import com.spring.mvc.springweb.score.repository.ScoreRepository;
 import com.spring.mvc.springweb.score.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,12 @@ public class ScoreController {
     //의존관계 설정
     private final ScoreRepository scoreRepository;
     private final ScoreService scoreService;
-
+    private final ScoreMyBatisMapper scoreMapper;
     @Autowired
-    public ScoreController(@Qualifier("templateScoreRepo") ScoreRepository scoreRepository, ScoreService scoreService) {
+    public ScoreController(@Qualifier("templateScoreRepo") ScoreRepository scoreRepository, ScoreService scoreService, ScoreMyBatisMapper scoreMapper) {
         this.scoreRepository = scoreRepository;
         this.scoreService = scoreService;
+        this.scoreMapper = scoreMapper;
     }
 
     //학생 성적 입력화면을 열어주는 요청 처리
@@ -51,7 +53,7 @@ public class ScoreController {
     @GetMapping("/score/delete")
     //RedirectAttributes - 리다이렉트하는 경로로 데이터를 보내주는 객체
     public String delete(int stuNum, RedirectAttributes ra){
-        scoreRepository.deleteScore(stuNum);
+        scoreMapper.deleteScore(stuNum);
         ra.addFlashAttribute("msg","delOk");//삭제 완료 후 /list요청의 jsp페이지로 보내 데이터 세팅
 
         //단순하게 score-list.jsp를 열게되면 조회 데이터가 없는 상태로 열리기 때문에 아무 데이터도 안나온다.
@@ -71,7 +73,7 @@ public class ScoreController {
     public String search(String stuNum,Model model,RedirectAttributes ra) {
         try {
             int num = Integer.parseInt(stuNum);
-            Score findScore = scoreRepository.selectOne(num);
+            Score findScore = scoreMapper.selectOne(num);
             model.addAttribute("score",findScore);
             return "score/search-result";
         } catch (NumberFormatException e) {
