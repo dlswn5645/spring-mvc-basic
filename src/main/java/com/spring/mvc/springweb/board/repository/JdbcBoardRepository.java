@@ -86,7 +86,7 @@ public class JdbcBoardRepository implements BoardRepository{
 
     //DELETE
     @Override
-    public void deleteArticle(int BoardNo) {
+    public void deleteArticle(int boardNo) {
 
         Connection connection = null;
 
@@ -95,7 +95,7 @@ public class JdbcBoardRepository implements BoardRepository{
             connection = DriverManager.getConnection(dbUrl, userId, userPw);
             String sql = "DELETE FROM tbl_board WHERE board_no=?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,BoardNo);
+            statement.setInt(1,boardNo);
             statement.executeUpdate();
 
             System.out.println("데이터 삭제 성공");

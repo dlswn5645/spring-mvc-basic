@@ -33,9 +33,9 @@ public class TemplateBoardRepository implements BoardRepository{
     }
 
     @Override
-    public void deleteArticle(int BoardNo) {
+    public void deleteArticle(int boardNo) {
         String sql = "DELETE FROM tbl_board WHERE board_no=?";
-        template.update(sql,BoardNo);
+        template.update(sql,boardNo);
     }
 
     @Override
@@ -49,10 +49,10 @@ public class TemplateBoardRepository implements BoardRepository{
     }
 
     @Override
-    public void modifyArticle(Board Article) {
+    public void modifyArticle(Board article) {
         String sql = "UPDATE tbl_board SET writer=?,title=?,content=? WHERE board_no=?";
-        template.update(sql,Article.getWriter(),Article.getTitle(),
-                Article.getContent(),Article.getBoardNo());
+        template.update(sql,article.getWriter(),article.getTitle(),
+                article.getContent(),article.getBoardNo());
 
     }
 

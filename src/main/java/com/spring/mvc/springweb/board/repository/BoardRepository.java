@@ -13,7 +13,7 @@ public interface BoardRepository {
     void insertArticle(Board article);
 
     //게시글 삭제
-    void deleteArticle(int BoardNo);
+    void deleteArticle(int boardNo);
 
     //게시글 내용보기
     Board getContent(int boardNo);

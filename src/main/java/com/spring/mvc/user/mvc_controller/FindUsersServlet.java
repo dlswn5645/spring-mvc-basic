@@ -29,7 +29,7 @@ public class FindUsersServlet extends HttpServlet {
         //모델로 사용할 수 있는 객체(request(한개의 요청에 대에서만), session, application)
         request.setAttribute("userList", users);
 
-        //모델에 담아둔 객체를 jsp파일로 전송
+        //모델에 담아둔 객체를 jsp파일로 전송(forwarding)
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/user-list.jsp");
         dispatcher.forward(request, response);
 
