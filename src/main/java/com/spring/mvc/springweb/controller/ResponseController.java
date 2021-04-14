@@ -36,11 +36,11 @@ public class ResponseController {
     //RestController: REST API작업할 때 String을 리턴하게되면
     //클라이언트로 문자열이 바로전송되므로 화면을 포워딩할 때 쓰임
     @GetMapping("/response/test2")
-    public String test2(User user) {
+    public ModelAndView test2(User user) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("user",user);
         mv.setViewName("response/test2");
-        return "response/test2";
+        return mv;
     }
 
     @GetMapping("/response/res-login")

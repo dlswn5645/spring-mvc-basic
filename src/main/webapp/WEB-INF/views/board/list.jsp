@@ -49,7 +49,6 @@
 	<a href="/board/write">게시글 작성하기</a>
 </p>
 
-</script>
 </body>
 </html>
 

@@ -4,6 +4,7 @@ import com.spring.mvc.springweb.board.domain.Board;
 import com.spring.mvc.springweb.board.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -13,6 +14,24 @@ import java.util.List;
 public class BoardApiController {
 
     private final BoardMapper boardMapper;
+
+    //게시물 페이지 열기
+    @GetMapping("/list")
+    public ModelAndView listPage(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("board-api/list");
+        return mv;
+    }
+
+    //게시물 상세보기 페이지 열기
+    @GetMapping("/detail")
+    public ModelAndView contentPage(int boardNo){
+        System.out.println("/api/board/detail GET: " + boardNo);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("board-api/content");
+        mv.addObject("bno",boardNo);
+        return mv;
+    }
 
     //게시물 전체 조회
     @GetMapping("/")
